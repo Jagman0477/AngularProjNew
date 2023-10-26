@@ -1,0 +1,5 @@
+package com.jagman.services;
+
+public class AuthenticationService {
+
+}
