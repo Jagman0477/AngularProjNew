@@ -1,0 +1,17 @@
+server:
+  port: 8081
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: TEST_SERVICE
+          uri: http://localhost:8083/
+          predicates:
+          - Path=/TEST_SERVICE/**
+        - id: PERSON_SERVICE
+          uri: http://localhost:8081/
+          predicates:
+          - Path=/PERSON_SERVICE/**
+  application:
+    name: apigateway
