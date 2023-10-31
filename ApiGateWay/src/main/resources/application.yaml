@@ -4,14 +4,26 @@ server:
 spring:
   cloud:
     gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+              allowedOrigins: "*"
+              allowedMethods: "*"
+              allowedHeaders: "*"
       routes:
-        - id: TEST_SERVICE
-          uri: http://localhost:8083/
-          predicates:
-          - Path=/TEST_SERVICE/**
-        - id: PERSON_SERVICE
-          uri: http://localhost:8081/
-          predicates:
-          - Path=/PERSON_SERVICE/**
+      - id: tests
+        uri: http://localhost:8083/
+        predicates:
+        - Path=/tests/**
+      - id: PERSON_SERVICE
+        uri: http://localhost:8081/
+        predicates:
+        - Path=/PERSON_SERVICE/**
+      - id: testcenter
+        uri: http://localhost:8082/
+        predicates:
+        - Path=/testcenter/**
   application:
     name: apigateway
